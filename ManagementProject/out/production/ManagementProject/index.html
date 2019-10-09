@@ -16,8 +16,58 @@
     <div data-options="region:'south'" style="height:50px; border-bottom: 3px solid #ec4e00;">
         <p align="center">杭州哲而思科技有限公司</p>
     </div>
-    <div data-options="region:'west',split:true" style="width:300px;"></div>
-    <div data-options="region:'center'" style="padding:5px;background:#eee;"></div>
+    <div data-options="region:'west',split:true" style="width:300px;">
 
+        <div id="aa" class="easyui-accordion" data-options="fit:true">
+            <div title="菜单" data-options="iconCls:'icon-save',selected:true" style="overflow:auto;padding:10px;">
+                <!--tree-->
+                <ul id="tree"></ul>
+            </div>
+            <div title="Title2" data-options="iconCls:'icon-reload'" style="padding:10px;">
+                content2
+            </div>
+            <div title="Title3">
+                content3
+            </div>
+        </div>
+
+    </div>
+    <div data-options="region:'center'" style="padding:5px;background:#eee;">
+        <!--标签-->
+        <div id="tabs">
+
+        </div>
+    </div>
+
+
+    <script>
+        
+        $(function () {
+            $("#tabs").tabs({
+                fit:true
+            })
+            $('#tree').tree({
+                url:'tree.json',
+                lines:true,
+                onClick: function(node){
+
+                    /*在添加之前, 做判断  判断这个标签是否存在 */
+                    var exists =   $("#tabs").tabs("exists",node.text);
+                    if(exists){
+                        /*存在,就让它选中*/
+                        $("#tabs").tabs("select",node.text);
+                    }else {
+                        /*如果不存在 ,添加新标签*/
+                        $("#tabs").tabs("add",{
+                            title:node.text,
+                            content:"<iframe src="+node.attributes.url+" frameborder='0'></iframe>",
+                            closable:true
+                        })
+                    }
+                }
+            });
+        });
+        
+    </script>
 </body>
 </html>

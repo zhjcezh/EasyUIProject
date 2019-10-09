@@ -40,7 +40,6 @@
     </div>
 
 
-
     <script>
         
         $(function () {
@@ -61,7 +60,7 @@
                         /*如果不存在 ,添加新标签*/
                         $("#tabs").tabs("add",{
                             title:node.text,
-                            content:"content",
+                            content:"<iframe src="+node.attributes.url+" width='100%' height='100%' frameborder='0'></iframe>",
                             closable:true
                         })
                     }
