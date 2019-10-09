@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="./easyui/uimaker/easyui.css">
+    <link rel="stylesheet" type="text/css" href="./easyui/uimaker/icon.css">
+    <script type="text/javascript" src="./easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="./easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="./easyui/easyui-lang-zh_CN.js"></script>
+</head>
+<body class="easyui-layout">
+    <div data-options="region:'north'" style="height:100px; background-color:#ec4e00; padding: 20px 20px">
+        <img src="main_logo.png">
+    </div>
+    <div data-options="region:'south'" style="height:50px; border-bottom: 3px solid #ec4e00;">
+        <p align="center">杭州哲而思科技有限公司</p>
+    </div>
+    <div data-options="region:'west',split:true" style="width:300px;">
+
+        <div id="aa" class="easyui-accordion" data-options="fit:true">
+            <div title="菜单" data-options="iconCls:'icon-save',selected:true" style="overflow:auto;padding:10px;">
+                <!--tree-->
+                <ul id="tree"></ul>
+            </div>
+            <div title="Title2" data-options="iconCls:'icon-reload'" style="padding:10px;">
+                content2
+            </div>
+            <div title="Title3">
+                content3
+            </div>
+        </div>
+
+    </div>
+    <div data-options="region:'center'" style="padding:5px;background:#eee;">
+        <!--标签-->
+        <div id="tabs">
+
+        </div>
+    </div>
+
+
+
+    <script>
+        
+        $(function () {
+            $("#tabs").tabs({
+                fit:true
+            })
+            $('#tree').tree({
+                url:'tree.json',
+                lines:true,
+                onClick: function(node){
+
+                    /*在添加之前, 做判断  判断这个标签是否存在 */
+                    var exists =   $("#tabs").tabs("exists",node.text);
+                    if(exists){
+                        /*存在,就让它选中*/
+                        $("#tabs").tabs("select",node.text);
+                    }else {
+                        /*如果不存在 ,添加新标签*/
+                        $("#tabs").tabs("add",{
+                            title:node.text,
+                            content:"content",
+                            closable:true
+                        })
+                    }
+                }
+            });
+        });
+        
+    </script>
+</body>
+</html>
